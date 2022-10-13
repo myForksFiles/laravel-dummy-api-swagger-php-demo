@@ -8,10 +8,11 @@ use Illuminate\Http\Response;
 class UserController extends Controller implements CrudInterface
 {
     protected $users = [
-        ['1', 'name', 'email', 'created_at', 'updated_at'],
-        ['2', 'user', 'user@email', '2018-11-16 12:34:56', '2018-11-17 01:23:45'],
-        ['3', 'test', 'test@email', '1910-11-16 00:00:00', '1910-11-17 00:00:00'],
-    ];
+            ['1', 'name', 'email', 'created_at', 'updated_at'],
+            ['2', 'user', 'user@email', '2018-11-16 12:34:56', '2018-11-17 01:23:45'],
+            ['3', 'test', 'test@email', '1910-11-16 00:00:00', '1910-11-17 00:00:00'],
+            ['5', 'some', 'test@email', '2022-10-10 00:00:00', '2022-10-10 12:34:56'],
+        ];
 
     /**
      * @OA\Post(path="/create",
