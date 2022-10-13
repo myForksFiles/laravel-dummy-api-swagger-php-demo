@@ -1,0 +1,12 @@
+version: '3.6'
+
+services:
+  web:
+    volumes:
+      - "./../:/var/www/laravel-dummy-api-swagger-php-demo/"
+      - "./logs/:/var/log/apache2/"
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+#  db:
+#    volumes:
+#      - "./sql/:/sql/"

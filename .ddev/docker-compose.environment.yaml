@@ -1,0 +1,42 @@
+version: '3.6'
+
+services:
+  web:
+    mem_limit: 512m
+    cpus: 2
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_DATABASE=db
+      - DB_USERNAME=db
+      - DB_PASSWORD=db
+      - PHP_IDE_CONFIG="serverName=ls.local"
+
+  db:
+    environment:
+      - SOMETHING="something special"
+
+
+# https://ddev.readthedocs.io/en/latest/users/extend/custom-commands/#custom-commands
+# A number of environment variables are provided to the script. Useful variables for host scripts are:
+# DDEV_APPROOT: file system location of the project on the host)
+# DDEV_HOST_DB_PORT: Localhost port of the database server
+# DDEV_HOST_WEBSERVER_PORT: Localhost port of the webserver
+# DDEV_HOST_HTTPS_PORT: Localhost port for https on webserver
+# DDEV_DOCROOT: Relative path from approot to docroot
+# DDEV_HOSTNAME: Comma-separated list of FQDN hostnames
+# DDEV_PHP_VERSION
+# DDEV_WEBSERVER_TYPE: nginx-fpm, apache-fpm, apache-cgi
+# DDEV_PROJECT_TYPE: drupal8, typo3, backdrop, wordpress, etc.
+# DDEV_ROUTER_HTTP_PORT: Router port for http
+# DDEV_ROUTER_HTTPS_PORT: Router port for https
+#
+# Useful variables for container scripts are:
+#
+# DDEV_DOCROOT: Relative path from approot to docroot
+# DDEV_HOSTNAME: Comma-separated list of FQDN hostnames
+# DDEV_PHP_VERSION
+# DDEV_WEBSERVER_TYPE: nginx-fpm, apache-fpm, apache-cgi
+# DDEV_PROJECT_TYPE: drupal8, typo3, backdrop, wordpress, etc.
+# DDEV_ROUTER_HTTP_PORT: Router port for http
+# DDEV_ROUTER_HTTPS_PORT: Router port for https
