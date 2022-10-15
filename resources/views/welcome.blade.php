@@ -46,7 +46,7 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 64px;
             }
 
             .links > a {
@@ -62,32 +62,68 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .content {
+                color: #000;
+            }
+
+hr {
+overflow: visible; /* For IE */
+padding: 0;
+border: none;
+border-top: medium double #333;
+color: #333;
+text-align: center;
+}
+hr:after {
+display: inline-block;
+position: relative;
+top: -0.7em;
+font-size: 1.5em;
+padding: 0 0.25em;
+background: white;
+}
         </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+<div class="title m-b-md">Laravel dummy API Swagger PHP demo</div>
+                <p class="content">
 
+                </p>
+<hr />
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+<a href="/doc">doc</a>
+<a href="/docs/asset/{asset}">docs/asset/{asset}</a>
+<a href="/docs/{jsonFile?}">docs/{jsonFile?}</a>
+<a href="/sanctum/csrf-cookie">sanctum/csrf-cookie</a>
+<hr />
+
+<a href="/">/</a>
+<a href="/api">api</a>
+<a href="/api/create">api/create POST</a>
+<a href="/api/delete/{id}">api/delete/{id} DELETE</a>
+<a href="/api/documentation">api/documentation GET</a>
+<a href="/api/list">api/list GET</a>
+<a href="/api/new">api/new POST</a>
+<a href="/api/oauth2-callback">api/oauth2-callback GET</a>
+<a href="/api/read/{id}">api/read/{id} GET</a>
+<a href="/api/remove/{id}">api/remove/{id} GET</a>
+<a href="/api/show">api/show GET</a>
+<a href="/api/token">api/token GET</a>
+<a href="/api/update/{id}">api/update/{id} PUT</a>
+<a href="/api/user">api/user</a>
+
+<hr />
+
+<a href="https://github.com/myForksFiles/laravel-dummy-api-swagger-php-demo" class="weight-">source repository</a>
+<a href="https://github.com/DarkaOnLine/L5-Swagger">L5-Swagger</a>
+<a href="https://github.com/zircote/swagger-php">swagger-php</a>
+<a href="https://github.com/swagger-api/swagger-ui">swagger-ui</a>
+<a href="https://swagger.io/">swagger.io</a>
+<a href="https://github.com/laravel/laravel">Laravel GitHub</a>
+<a href="https://github.com/myForksFiles/laravel-dummy-api-swagger-php-demo" class="weight-">source repository</a>
                 </div>
             </div>
         </div>

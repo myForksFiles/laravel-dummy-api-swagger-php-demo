@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller implements CrudInterface
 {
@@ -11,8 +12,13 @@ class UserController extends Controller implements CrudInterface
             ['1', 'name', 'email', 'created_at', 'updated_at'],
             ['2', 'user', 'user@email', '2018-11-16 12:34:56', '2018-11-17 01:23:45'],
             ['3', 'test', 'test@email', '1910-11-16 00:00:00', '1910-11-17 00:00:00'],
-            ['5', 'some', 'test@email', '2022-10-10 00:00:00', '2022-10-10 12:34:56'],
+            ['5', 'some', 'some@email', '2022-10-10 00:00:00', '2022-10-10 12:34:56'],
         ];
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
 
     /**
      * @OA\Post(path="/create",
@@ -28,7 +34,7 @@ class UserController extends Controller implements CrudInterface
      *                 @OA\Property(type="string", property="email", description="email", default=""),
      *         )),
      *         @OA\MediaType(mediaType="application/json",
-     *             @OA\JsonContent(example={"name": "string", "email": "string"})),
+     *             @OA\Property(property="message", type="string", example={"name": "string", "email": "string"})),
      *     ),
      *     @OA\Response(response=201, ref="#/components/schemas/OK",
      *         description="created requested entry return id",
@@ -58,9 +64,17 @@ class UserController extends Controller implements CrudInterface
      *         @OA\JsonContent(example={"status": "errorNotShowThisExample"})),
      * )
      */
-    public function read(int $id)
+    public function read(int $id): void
     {
-        $this->response(['status' => 'show'], 'HTTP_OK');
+//        $user = Auth::user(); // todo
+
+        $response = Response::HTTP_OK;
+        $user = $this->users[$id] ?? [];
+        if (!$user) {
+            $response = Response::HTTP_NO_CONTENT;
+        }
+
+        $this->response(['status' => 'show', 'user' => $user], $response);
     }
 
     /**
@@ -78,7 +92,7 @@ class UserController extends Controller implements CrudInterface
      *                 @OA\Property(type="string", property="email", description="email", default=""),
      *         )),
      *         @OA\MediaType(mediaType="application/json",
-     *             @OA\JsonContent(example={"name": "string", "email": "string"})),
+     *             @OA\Property(property="message", type="string", example={"name": "string", "email": "string"})),
      *     ),
      *     @OA\Response(response=202, ref="#/components/schemas/Accepted",
      *         @OA\JsonContent(example={"status": "updated"})),
@@ -88,8 +102,7 @@ class UserController extends Controller implements CrudInterface
      */
     public function update(int $id, array $data)
     {
-//        $this->response(['status' => 'show'], 'HTTP_OK');
-        $this->response(['status' => 'updated'], 'HTTP_ACCEPTED');
+        $this->response(['status' => 'updated'], Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -106,7 +119,7 @@ class UserController extends Controller implements CrudInterface
      */
     public function delete(int $id)
     {
-        $this->response(['status' => 'deleted'], 'HTTP_NO_CONTENT');
+        $this->response(['status' => 'deleted'], Response::HTTP_NO_CONTENT);
     }
 
     /**
@@ -124,7 +137,7 @@ class UserController extends Controller implements CrudInterface
      */
     public function remove(int $id)
     {
-        $this->response(['status' => 'created'], 'HTTP_RESET_CONTENT');
+        $this->response(['status' => 'created'], Response::HTTP_RESET_CONTENT);
     }
 
     /**
@@ -150,5 +163,21 @@ class UserController extends Controller implements CrudInterface
         }
 
         return self::response(['status' => 'list', 'results' => $this->users], Response::HTTP_OK);
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param array $data
+     * @return \App\User
+     */
+    public function createToken(array $data)
+    {
+        return User::forceCreate([
+            'name'      => $data['name'],
+            'email'     => $data['email'],
+            'password'  => Hash::make($data['password']),
+            'api_token' => Str::random(80),
+        ]);
     }
 }

@@ -25,17 +25,17 @@ class TestController extends Controller
 
     public function showEntry($id)
     {
-        $this->response(['status' => 'show'], 'HTTP_OK');
+        $this->response(['status' => 'show'], Response::HTTP_OK);
     }
 
     public function newEntry(Request $request)
     {
-        $this->response(['status' => 'created'], 'HTTP_CREATED');
+        $this->response(['status' => 'created'], Response::HTTP_CREATED);
     }
 
     public function updateEntry(int $id, Request $request)
     {
-        $this->response(['status' => 'updated'], 'HTTP_ACCEPTED');
+        $this->response(['status' => 'updated'], Response::HTTP_ACCEPTED);
     }
 
     public function whereCanIfind(int $id)

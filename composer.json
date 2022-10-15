@@ -6,13 +6,15 @@
     "type": "project",
     "require": {
         "php": "^7.3|^8.0",
+        "darkaonline/l5-swagger": "^8.4",
+        "fideloper/proxy": "^4.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "fideloper/proxy": "^4.0",
-        "darkaonline/l5-swagger": "^8.4"
+        "laravel/ui": "*",
+        "spatie/laravel-ignition": "^1.5"
     },
     "require-dev": {
         "facade/ignition": "^2.17",
@@ -22,7 +24,14 @@
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^5.10",
-        "phpunit/phpunit": "^9.5.10"
+        "phan/phan": "^5.4",
+        "pheromone/phpcs-security-audit": "^2.0",
+        "phpbench/phpbench": "^1.2",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "phpstan/phpstan": "^1.8",
+        "phpunit/phpunit": "^9.5.10",
+        "squizlabs/php_codesniffer": "*",
+        "vimeo/psalm": "^4.29"
     },
     "autoload": {
         "psr-4": {

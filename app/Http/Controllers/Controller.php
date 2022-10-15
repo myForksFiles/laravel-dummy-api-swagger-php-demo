@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Controller as BaseController;
+
 
 /**
  * @OA\OpenApi(
  *     @OA\Info(
  *         title="Open API demo Swagger PHP / L5 Swagger",
- *         version="1.0.0",
+ *         version="1.1.0",
  *         description="Use <a href='#operations-Authorisation-Login'>/login</a> route with dev credentials to get token.
 <br /><b>TAGS: </b>
 <a href='#operations-tag-Auth'>Auth</a>,
@@ -25,8 +26,8 @@ use Illuminate\Http\Response;
  *
  *     ),
  *     @OA\PathItem(path="/"),
- *     @OA\Server(url="/v1", description="local dev"),
- *     @OA\Server(url="https://devServer.tld/v1", description="staging"),
+ *     @OA\Server(url="/api", description="local dev"),
+ *     @OA\Server(url="http://ls.ddev.site/api", description="staging"),
  *     security={{"authToken": {}}}
  * )
  *
@@ -60,19 +61,21 @@ use Illuminate\Http\Response;
  * ### Common responses ########################################################
  * // 204 >> empty
  * @OA\Response(response="empty",
- *     description="empty results", @OA\JsonContent(type="string", example="[]"))
+ *     description="empty results", @OA\JsonContent(type="string", example=""))
  *
  * // 200 >> ok
  * @OA\Schema(schema="OK",
- *     description="just ok", @OA\JsonContent(type="string", example="OK"))
+ *     description="just ok",
+ *     @OA\Property(property="message", type="string")
+ * )
  *
  * // 202 >> Accepted
  * @OA\Schema(schema="Accepted",
- *     description="Accepted", @OA\JsonContent(type="string", example="Accepted"))
+ *     description="Accepted", @OA\Property(property="message", type="string", example="Accepted"))
  *
  * // 400
  * @OA\Schema(schema="BadRequest",
- *     description="bad request", @OA\JsonContent(type="string", example="Bad request."))
+ *     description="bad request", @OA\Property(property="message", type="string", example="Bad request."))
  *
  * // 401
  * @OA\Schema(schema="Unauthorized",
@@ -80,19 +83,19 @@ use Illuminate\Http\Response;
  *
  * // 404
  * @OA\Schema(schema="NotFound",
- *     description="not found", @OA\JsonContent(type="string", example="Not found"))
+ *     description="not found", @OA\Property(property="message", type="string", example="Not found"))
  *
  * // 429
  * @OA\Schema(schema="TooManyRequests",
- *     description="too Many Requests", @OA\JsonContent(type="string", example="Too Many Attempts"))
+ *     description="too Many Requests", @OA\Property(property="message", type="string", example="Too Many Attempts"))
  *
  * // 500
  * @OA\Schema(schema="InternalServerError",
- *     description="internal server error", @OA\JsonContent(type="string", example="Internal Server Error"))
+ *     description="internal server error", @OA\Property(property="message", type="string", example="Internal Server Error"))
  *
  * // 502
  * @OA\Schema(schema="BadGateway",
- *     description="invalid response", @OA\JsonContent(type="string", example="Client error: resulted as Bad Request"))
+ *     description="invalid response", @OA\Property(property="message", type="string", example="Client error: resulted as Bad Request"))
  *
  * Class Controller
  * @package App\Http\Controllers
@@ -101,9 +104,9 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public static function response(array $data, $response)
+    public static function response(array $data, int $response): \Illuminate\Http\JsonResponse
     {
-        return response()->json($data,$response);
+        return response()->json($data, $response);
     }
 
     public function error($error = 'error')
