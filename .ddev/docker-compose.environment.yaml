@@ -10,7 +10,7 @@ services:
       - DB_DATABASE=db
       - DB_USERNAME=db
       - DB_PASSWORD=db
-      - PHP_IDE_CONFIG="serverName=geholit-wiemer.local"
+      - PHP_IDE_CONFIG="serverName=ls.local"
 
   db:
     environment:
